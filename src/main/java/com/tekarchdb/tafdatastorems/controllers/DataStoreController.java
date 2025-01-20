@@ -1,7 +1,10 @@
 package com.tekarchdb.tafdatastorems.controllers;
 
+import com.tekarchdb.tafdatastorems.models.Bookings;
+import com.tekarchdb.tafdatastorems.models.BookingsDTO;
 import com.tekarchdb.tafdatastorems.models.Flights;
 import com.tekarchdb.tafdatastorems.models.Users;
+import com.tekarchdb.tafdatastorems.services.BookingServiceImpl;
 import com.tekarchdb.tafdatastorems.services.FlightServiceImpl;
 import com.tekarchdb.tafdatastorems.services.UserServiceImpl;
 import lombok.AllArgsConstructor;
@@ -19,7 +22,7 @@ public class DataStoreController {
 
     private final UserServiceImpl userService;
     private final FlightServiceImpl flightService;
-
+    private final BookingServiceImpl bookingService;
 
 /*=================================================USER=================================================*/
 
@@ -52,7 +55,6 @@ public class DataStoreController {
     @PostMapping("/flights/add")
     public Flights addFlight(@RequestBody Flights flight){
         return flightService.addFlight(flight);
-
     }
 
     @GetMapping("/flights/{flightId}")
@@ -80,10 +82,35 @@ public class DataStoreController {
 
     @DeleteMapping("/flights/{flightId}")
     public void deleteFlight(@PathVariable("flightId") Long id) {
-
             flightService.deleteFlight(id);
+    }
+
+    /*================================================Booking==================================================*/
+
+    @PostMapping("/bookings/book")
+    public Bookings bookFlight(@RequestBody Bookings booking){
+        return bookingService.bookFlight(booking);
+    }
+    @GetMapping("/bookings/{bookingId}")
+    public Optional<Bookings> getBookedDetailsById(@PathVariable("bookingId") Long bookingId) {
+
+        return bookingService.getBookedDetailsById(bookingId);
+    }
+
+    @GetMapping("bookings/users/{userId}")
+    public List<Bookings> getAllBookedDetailsByUserId(@PathVariable("userId") Long userId) {
+
+        return bookingService.getBookedDetailsByUserId(userId);
+    }
+
+
+    @PutMapping("/bookings/{bookingId}")
+    public void updateUser(@PathVariable("bookingId") Long id, @RequestBody Bookings bookedDetails) {
+        bookingService.updateBookingDetails(id, bookedDetails);
 
     }
+
+
 
 
 
