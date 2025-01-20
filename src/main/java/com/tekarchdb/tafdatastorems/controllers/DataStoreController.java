@@ -29,12 +29,10 @@ public class DataStoreController {
     @PostMapping("/users/register")
     public Users registerUser(@RequestBody Users user){
         return userService.registerUser(user);
-
     }
 
     @GetMapping("/users/{userId}")
     public Optional<Users> getUserById(@PathVariable("userId") Long userId) {
-
        return userService.getUserById(userId);
     }
 
@@ -109,10 +107,6 @@ public class DataStoreController {
         bookingService.updateBookingDetails(id, bookedDetails);
 
     }
-
-
-
-
 
     @ExceptionHandler
     public ResponseEntity<?> respondWithError(Exception e){
